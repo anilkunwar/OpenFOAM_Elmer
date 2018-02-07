@@ -12,6 +12,8 @@
      ==
         radiation->ST(rhoCpRef, T)
       + fvOptions(T)
+        // Added for Joule Heating Source
++ sigma*(fvc::grad(Vel) ) & fvc::grad(Vel))
     );
 
     TEqn.relax();
