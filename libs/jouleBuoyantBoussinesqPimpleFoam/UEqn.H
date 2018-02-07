@@ -1,4 +1,4 @@
- // Solve the momentum equation
+    // Solve the momentum equation
 
     MRF.correctBoundaryVelocity(U);
 
