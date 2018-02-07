@@ -41,6 +41,34 @@ volVectorField U
     ),
     mesh
 );
+//Add the field electric potential and electric conductivity for joule heatin
+Info<< "Initializing field Vel\n" << endl;
+volScalarField Vel
+(
+    IOobject
+    (
+        "Vel",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Initializing field elcond\n" << endl;
+volScalarField elcond
+(
+    IOobject
+    (
+        "elcond",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh
+);
 
 #include "createPhi.H"
 
