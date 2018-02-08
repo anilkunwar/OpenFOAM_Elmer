@@ -13,7 +13,8 @@
         radiation->ST(rhoCpRef, T)
       + fvOptions(T)
         // Added for Joule Heating Source
-+ sigma*(fvc::grad(Vel) ) & fvc::grad(Vel))  //Vel is electric voltage
+//+ sigma*(fvc::grad(Vel) ) & fvc::grad(Vel))  //Vel is electric voltage
+        + fvm::Sp(qjoule,1)
     );
 
     TEqn.relax();
