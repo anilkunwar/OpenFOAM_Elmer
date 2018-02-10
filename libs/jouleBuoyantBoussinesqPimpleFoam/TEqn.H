@@ -15,7 +15,7 @@
         // Added for Joule Heating Source
 //+ sigma*(fvc::grad(Vel) ) & fvc::grad(Vel))  //Vel is electric voltage
      //   + fvm::Sp(qjoule,T) //Implicit source term case is as such
-        + qjoule/alphaEff
+        + qjoule*kappa/alphaEff
     );
 
     TEqn.relax();
