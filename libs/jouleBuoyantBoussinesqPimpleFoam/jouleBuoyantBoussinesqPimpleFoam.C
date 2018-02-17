@@ -51,6 +51,7 @@ Description
 #include "radiationModel.H"
 #include "fvOptions.H"
 #include "pimpleControl.H"
+#include "Elmer.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -74,6 +75,13 @@ int main(int argc, char *argv[])
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
+    // Send fields to Elmer
+   // Elmer sending(mesh,1); // 1=send, -1=receive
+    //sending.sendStatus(1); // 1=ok, 0=lastIter, -1=error
+    //elcond = alpha1 * elcond_ref;
+    //qjoule = 1.0 * elcond_ref;
+    //sending.sendScalar(qjoule); //receive qjoule from Elmer
+
 
     while (runTime.run())
     {
