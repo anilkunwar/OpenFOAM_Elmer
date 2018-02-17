@@ -23,12 +23,12 @@ License
 
 Application
     buoyantBoussinesqPimpleFoam
+    \f[
 
 Description
     Transient solver for buoyant, turbulent flow of incompressible fluids.
 
     Uses the Boussinesq approximation:
-    \f[
         rho_{k} = 1 - beta(T - T_{ref})
     \f]
 
@@ -82,14 +82,36 @@ int main(int argc, char *argv[])
     //qjoule = 1.0 * elcond_ref;
     //sending.sendScalar(qjoule); //receive qjoule from Elmer
 
+      // Receive fields from Elmer
+    Elmer receiving(mesh,-1); // 1=send, -1=receive
+    receiving.sendStatus(1); // 1=ok, 0=lastIter, -1=error
+    receiving.recvVector(JxB_recv);
 
     while (runTime.run())
     {
+        JxB = JxB_recv*alpha1;
+
         #include "readTimeControls.H"
-        #include "CourantNo.H"
-        #include "setDeltaT.H"
+
+        if (LTS)
+        {
+            #include "setRDeltaT.H"
+        }
+        else
+        {
+            #include "CourantNo.H"
+            #include "alphaCourantNo.H"
+            #include "setDeltaT.H"
+        }
 
         runTime++;
+   // while (runTime.run())
+   // {
+        //#include "readTimeControls.H"
+        //#include "CourantNo.H"
+        //#include "setDeltaT.H"
+
+       // runTime++;
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
