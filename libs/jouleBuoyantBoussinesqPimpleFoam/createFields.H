@@ -29,6 +29,21 @@ volScalarField qjoule
 );
 
 
+Info<< "Reading field kappa\n" << endl;
+volScalarField kappa
+(
+    IOobject
+    (
+        "kappa",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+
 Info<< "Reading field p_rgh\n" << endl;
 volScalarField p_rgh
 (
