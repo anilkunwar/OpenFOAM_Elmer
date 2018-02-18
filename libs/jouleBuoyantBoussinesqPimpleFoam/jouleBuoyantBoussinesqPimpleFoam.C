@@ -141,7 +141,36 @@ int main(int argc, char *argv[])
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
     }
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+        // Check whether we need to update electromagnetic stuff with Elmer
+        double maxRelDiff = (max(mag(alpha_old - alpha1f))).value();
+
+        bool doElmer = false;
+        if(maxRelDiff>0.5) {
+            doElmer = true;
+        }
+
+        if(doElmer || !runTime.run()) {
+            alpha_old = alpha1f;
+            double commTime = MPI_Wtime();
+
+            // Send fields to Elmer
+            sending.sendStatus(runTime.run());
+            elcond = alpha1f * elcond_ref;
+            sending.sendScalar(elcond);
+
+            Info<< "OpenFOAM2Elmer = " << MPI_Wtime()-commTime << " s" << nl << endl;
+            commTime = MPI_Wtime();
+
+            // Receive fields form Elmer
+            receiving.sendStatus(runTime.run());
+            receiving.recvVector(JxB_recv);
+            receiving.recvScalar(JH_recv);
+
+            Info<< "Elmer2OpenFOAM = " << MPI_Wtime()-commTime << " s" << nl << endl;
+        }
+    }
     Info<< "End\n" << endl;
 
     return 0;
