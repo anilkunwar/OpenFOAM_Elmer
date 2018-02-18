@@ -15,7 +15,7 @@ volScalarField T
 );
 
 Info<< "Reading field qjoule\n" << endl;
-volScalarField T
+volScalarField qjoule
 (
     IOobject
     (
