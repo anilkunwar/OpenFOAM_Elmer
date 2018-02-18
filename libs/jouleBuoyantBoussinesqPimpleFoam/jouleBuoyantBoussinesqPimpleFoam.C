@@ -76,20 +76,21 @@ int main(int argc, char *argv[])
 
     Info<< "\nStarting time loop\n" << endl;
     // Send fields to Elmer
-   // Elmer sending(mesh,1); // 1=send, -1=receive
-    //sending.sendStatus(1); // 1=ok, 0=lastIter, -1=error
+    Elmer sending(mesh,1); // 1=send, -1=receive
+    sending.sendStatus(1); // 1=ok, 0=lastIter, -1=error
     //elcond = alpha1 * elcond_ref;
-    //qjoule = 1.0 * elcond_ref;
-    //sending.sendScalar(qjoule); //receive qjoule from Elmer
+    elcond = 1.0 * elcond_ref;
+    sending.sendScalar(elcond); //send elcond to Elmer
 
       // Receive fields from Elmer
     Elmer receiving(mesh,-1); // 1=send, -1=receive
     receiving.sendStatus(1); // 1=ok, 0=lastIter, -1=error
-    receiving.recvVector(JxB_recv);
+    //receiving.recvVector(JxB_recv);
+  receiving.recvScalar(qjoule_recv);
 
     while (runTime.run())
     {
-        JxB = JxB_recv*alpha1;
+        qjoule = qjoule_recv*1.0;
 
         #include "readTimeControls.H"
 
