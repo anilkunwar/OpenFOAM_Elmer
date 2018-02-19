@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    buoyantBoussinesqPimpleFoam
+    jouleBuoyantBoussinesqPimpleFoam = buoyantBoussinesqPimpleFoam + TEqn.H + Elmer
     \f[
 
 Description
@@ -42,7 +42,13 @@ Description
     \f[
         \frac{beta(T - T_{ref})}{rho_{ref}} << 1
     \f]
-
+    
+    -------------------------------------------------------------------------------
+Ogirinal buoyantBoussinesqPimpleFoam solver is part of OpenFOAM
+//Thermal solver taken from Qingming Liu:
+//http://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2011/QingmingLiu/Project_QingmingLIU-final.pdf
+Write the actual source
+Modified by: Anil Kunwar
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
@@ -143,7 +149,7 @@ int main(int argc, char *argv[])
     }
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-        // Check whether we need to update electromagnetic stuff with Elmer
+        //Check whether we need to update electromagnetic stuff with Elmer
         double maxRelDiff = (max(mag(alpha_old - alpha1f))).value();
 
         bool doElmer = false;
@@ -152,12 +158,13 @@ int main(int argc, char *argv[])
         }
 
         if(doElmer || !runTime.run()) {
-            alpha_old = alpha1f;
+            //alpha_old = alpha1f;
             double commTime = MPI_Wtime();
 
             // Send fields to Elmer
             sending.sendStatus(runTime.run());
-            elcond = alpha1f * elcond_ref;
+            //elcond = alpha1f * elcond_ref;
+           elcond = 1.0 * elcond_ref;
             sending.sendScalar(elcond);
 
             Info<< "OpenFOAM2Elmer = " << MPI_Wtime()-commTime << " s" << nl << endl;
@@ -165,8 +172,8 @@ int main(int argc, char *argv[])
 
             // Receive fields form Elmer
             receiving.sendStatus(runTime.run());
-            receiving.recvVector(JxB_recv);
-            receiving.recvScalar(JH_recv);
+            //receiving.recvVector(JxB_recv);
+            receiving.recvScalar(qjoule_recv);
 
             Info<< "Elmer2OpenFOAM = " << MPI_Wtime()-commTime << " s" << nl << endl;
         }
