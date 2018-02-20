@@ -1,6 +1,8 @@
 //http://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2010/highLevelProgramming.
 //http://caefn.com/openfoam/solvers-
 //http://www.foamacademy.com/wp-content/uploads/2016/11/thermo_training_handout_public.pdf
+//https://www.cfd-online.com/Forums/openfoam-pre-processing/179786-buoyantboussinesqpimplefoam-heat-transfer.html
+// Try with simulationType laminar; for convergence reasons and things.
 
 {
     alphat = turbulence->nut()/Prt;
