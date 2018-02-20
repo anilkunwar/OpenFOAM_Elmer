@@ -1,0 +1,29 @@
+!------ Skeleton for body section -----
+Body 1
+  Name = Box_1
+End
+
+!------ Skeleton for boundary section -----
+Boundary Condition 1
+  Name = Face_left-anode1
+End
+
+Boundary Condition 2
+  Name = Face_front2
+End
+
+Boundary Condition 3
+  Name = Face_bottom3
+End
+
+Boundary Condition 4
+  Name = Face_top4
+End
+
+Boundary Condition 5
+  Name = Face_back5
+End
+
+Boundary Condition 6
+  Name = Face_right-cathode6
+End
