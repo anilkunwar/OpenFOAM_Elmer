@@ -23,14 +23,16 @@ boundaryField
        //floor
     Face_bottom3 
     {
-        type            fixedValue;
-        value           uniform 300;
+        //type            fixedValue;
+        //value           uniform 300;
+        type            zeroGradient;
     }
     //ceiling
     Face_top4
     {
-        type            fixedValue;
-        value           uniform 300;
+        //type            fixedValue;
+        //value           uniform 300;
+        type            zeroGradient;
     }
     //fixedWalls
     Face_left-anode1
