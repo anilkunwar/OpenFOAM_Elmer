@@ -1,5 +1,7 @@
 //http://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2010/highLevelProgramming.
-//http://caefn.com/openfoam/solvers-buoyantboussinesqpimplefoam
+//http://caefn.com/openfoam/solvers-
+//http://www.foamacademy.com/wp-content/uploads/2016/11/thermo_training_handout_public.pdf
+
 {
     alphat = turbulence->nut()/Prt;
     alphat.correctBoundaryConditions();
