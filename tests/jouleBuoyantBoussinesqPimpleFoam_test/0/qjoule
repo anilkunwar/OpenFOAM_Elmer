@@ -20,15 +20,35 @@ internalField   uniform 0;
 
 boundaryField
 {
-    back
+       //floor
+    Face_bottom3 
     {
-        type            empty;
+        type            fixedValue;
+        value           uniform 300;
     }
-    front
+    //ceiling
+    Face_top4
     {
-        type            empty;
+        type            fixedValue;
+        value           uniform 300;
     }
-    ".*"
+    //fixedWalls
+    Face_left-anode1
+    {
+        type            zeroGradient;
+    }
+    //fixedWalls
+    Face_front2
+    {
+        type            zeroGradient;
+    }
+   //fixedWalls
+    Face_back5
+    {
+        type            zeroGradient;
+    }
+   //fixedWalls
+    Face_right-cathode6
     {
         type            zeroGradient;
     }
