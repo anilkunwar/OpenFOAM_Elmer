@@ -1,3 +1,4 @@
+//http://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2010/highLevelProgramming.pdf
 {
     alphat = turbulence->nut()/Prt;
     alphat.correctBoundaryConditions();
