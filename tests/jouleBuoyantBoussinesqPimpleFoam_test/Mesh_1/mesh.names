@@ -1,0 +1,9 @@
+! ----- names for bodies -----
+$ Box_1 = 1
+! ----- names for boundaries -----
+$ Face_left-anode1 = 1
+$ Face_front2 = 2
+$ Face_bottom3 = 3
+$ Face_top4 = 4
+$ Face_back5 = 5
+$ Face_right-cathode6 = 6
