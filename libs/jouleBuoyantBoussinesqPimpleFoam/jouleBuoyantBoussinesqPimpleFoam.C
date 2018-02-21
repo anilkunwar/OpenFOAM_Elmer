@@ -102,12 +102,12 @@ int main(int argc, char *argv[])
 
         if (LTS)
         {
-            #include "setRDeltaT.H"
+            //#include "setRDeltaT.H"
         }
         else
         {
             #include "CourantNo.H"
-            #include "alphaCourantNo.H"
+            //#include "alphaCourantNo.H"
             #include "setDeltaT.H"
         }
 
