@@ -28,20 +28,66 @@ volScalarField qjoule
     mesh
 );
 
-
-Info<< "Reading field kappa\n" << endl;
-volScalarField kappa
+Info<< "Initializing field qjoule_recv\n" << endl;
+volScalarField qjoule_recv
 (
     IOobject
     (
-        "kappa",
+        "qjoule_recv",
         runTime.timeName(),
         mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
     ),
-    mesh
+    qjoule
 );
+
+
+Info<< "Initializing field alpha_old\n" << endl;
+volScalarField alpha_old
+(
+    IOobject
+    (
+        "alpha_old",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+	dimensionedScalar("zero", dimless, 0)
+);
+
+
+Info<< "Initializing field alpha1f\n" << endl;
+volScalarField alpha1f
+(
+    IOobject
+    (
+        "alpha1f",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+	dimensionedScalar("zero", dimless, 0)
+);
+
+
+//Info<< "Reading field kappa\n" << endl;
+//volScalarField kappa
+//(
+    //IOobject
+    //(
+      //  "kappa",
+      //  runTime.timeName(),
+       // mesh,
+       // IOobject::MUST_READ,
+      //  IOobject::AUTO_WRITE
+    //),
+   // mesh
+//);
 
 
 Info<< "Reading field p_rgh\n" << endl;
@@ -181,3 +227,21 @@ mesh.setFluxRequired(p_rgh.name());
 
 #include "createMRF.H"
 #include "createIncompressibleRadiationModel.H"
+
+//can define in readTransportProperties.H file as well
+// http://openfoamwiki.net/index.php/How_to_add_temperature_to_icoFoam (A very important note for adding extra Physics)
+// Reference conductivity
+//dimensionedScalar elcond_ref("elcond_ref", dimless, mixture);
+ dimensionedScalar elcond_ref("elcond_ref", dimless, laminarTransport);
+//dimensionedScalar elcond_ref("elcond_ref", dimless, 0);
+//dimensionedScalar elcond_ref
+//(
+//    transportProperties.lookup("elcond_ref")
+//);
+
+//dimensionedScalar kappa
+//(
+ //    transportProperties.lookup("kappa")
+//);
+dimensionedScalar kappa("kappa", dimless, laminarTransport); //please change later to dimKappa
+//dimensionedScalar kappa("kappa", dimless, 0); //please change later to dimKappa
