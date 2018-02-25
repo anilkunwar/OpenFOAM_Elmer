@@ -100,16 +100,16 @@ int main(int argc, char *argv[])
 
         #include "readTimeControls.H"
 
-        if (LTS)
-        {
+        //if (LTS)
+        //{
             //#include "setRDeltaT.H"
-        }
-        else
-        {
+        //}
+        //else
+        //{
             #include "CourantNo.H"
             //#include "alphaCourantNo.H"
             #include "setDeltaT.H"
-        }
+        //}
 
         runTime++;
    // while (runTime.run())
@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
-    }
+   // }
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
         //Check whether we need to update electromagnetic stuff with Elmer
