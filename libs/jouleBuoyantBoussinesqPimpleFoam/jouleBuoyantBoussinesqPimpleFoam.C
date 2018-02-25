@@ -99,7 +99,8 @@ int main(int argc, char *argv[])
         qjoule = qjoule_recv*1.0;
 
         #include "readTimeControls.H"
-
+       //Local timestepping(LTS) only implemented in other model such as interFoam 
+       // https://openfoam.org/release/2-0-0/steady-state-vof/
         //if (LTS)
         //{
             //#include "setRDeltaT.H"
