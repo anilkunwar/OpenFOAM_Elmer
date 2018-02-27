@@ -151,12 +151,12 @@ int main(int argc, char *argv[])
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
         //Check whether we need to update electromagnetic stuff with Elmer
-        double maxRelDiff = (max(mag(alpha_old - alpha1f))).value();
+        //double maxRelDiff = (max(mag(alpha_old - alpha1f))).value();
 
-        bool doElmer = false;
-        if(maxRelDiff>0.5) {
-            doElmer = true;
-        }
+        // bool doElmer = false;
+        //if(maxRelDiff>0.5) {
+        bool    doElmer = true;
+        //}
 
         if(doElmer || !runTime.run()) {
             //alpha_old = alpha1f;
