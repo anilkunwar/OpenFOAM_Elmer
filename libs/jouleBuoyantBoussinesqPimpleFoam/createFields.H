@@ -243,5 +243,5 @@ mesh.setFluxRequired(p_rgh.name());
 //(
  //    transportProperties.lookup("kappa")
 //);
-dimensionedScalar kappa("kappa", dimless, laminarTransport); //please change later to dimKappa
+dimensionedScalar kappa("kappa", dimPower/dimLength/dimTemperature, laminarTransport); //please change later to dimKappa
 //dimensionedScalar kappa("kappa", dimless, 0); //please change later to dimKappa
