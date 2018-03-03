@@ -14,6 +14,21 @@ volScalarField T
     mesh
 );
 
+//Temperature dependent coupling of variables
+//volScalarField DT
+//(
+    //   IOobject
+	  //  (
+	   //      "DT",
+    	   //  runTime.timeName(),
+	   //      mesh,
+	   //      IOobject::NO_READ,
+	   //      IOobject::AUTO_WRITE
+	  //   ),
+	//     mesh,
+//	     dimensionedScalar ("DT",dimensionSet (0,2,-1,0,0,0,0), 1e-3) // this is just for initializing 
+//);	    
+
 Info<< "Reading field qjoule\n" << endl;
 volScalarField qjoule
 (
@@ -43,36 +58,36 @@ volScalarField qjoule_recv
 );
 
 
-Info<< "Initializing field alpha_old\n" << endl;
-volScalarField alpha_old
-(
-    IOobject
-    (
-        "alpha_old",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-	dimensionedScalar("zero", dimless, 0)
-);
+//Info<< "Initializing field alpha_old\n" << endl;
+//volScalarField alpha_old
+//(
+  //  IOobject
+   // (
+     //   "alpha_old",
+     //   runTime.timeName(),
+     //  mesh,
+     //   IOobject::NO_READ,
+     //   IOobject::NO_WRITE
+    //),
+    //mesh,
+//	dimensionedScalar("zero", dimless, 0)
+//);
 
-
-Info<< "Initializing field alpha1f\n" << endl;
-volScalarField alpha1f
-(
-    IOobject
-    (
-        "alpha1f",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-	dimensionedScalar("zero", dimless, 0)
-);
+//The value of alpha1f is alsways 1
+//Info<< "Initializing field alpha1f\n" << endl;
+//volScalarField alpha1f
+//(
+  //  IOobject
+   // (
+    //    "alpha1f",
+    //    runTime.timeName(),
+    //    mesh,
+    //    IOobject::NO_READ,
+    //    IOobject::NO_WRITE
+    //),
+    //mesh,
+//	dimensionedScalar("zero", dimless, 0)
+//);
 
 
 //Info<< "Reading field kappa\n" << endl;
@@ -168,6 +183,34 @@ volScalarField rhok
     1.0 - beta*(T - TRef)
 );
 
+// Need to store rho for ddt(rho, U)
+volScalarField rho
+(
+    IOobject
+    (
+        "rho",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT
+    ),
+    1.0*rho
+);
+rho.oldTime();
+
+// Mass flux
+surfaceScalarField rhoPhi
+(
+    IOobject
+    (
+        "rhoPhi",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    fvc::interpolate(rho)*phi
+);
+
 // kinematic turbulent thermal thermal conductivity m2/s
 Info<< "Reading field alphat\n" << endl;
 volScalarField alphat
@@ -244,4 +287,7 @@ mesh.setFluxRequired(p_rgh.name());
  //    transportProperties.lookup("kappa")
 //);
 dimensionedScalar kappa("kappa", dimPower/dimLength/dimTemperature, laminarTransport); //please change later to dimKappa
+dimensionedScalar cp("cp", dimSpecificHeatCapacity, laminarTransport); //please change later to dimKappa
 //dimensionedScalar kappa("kappa", dimless, 0); //please change later to dimKappa
+//dimensionedScalar alpha_old("alpha_old", dimless, 0);
+//dimensionedScalar alpha1f("alpha1f", dimless, 0);
